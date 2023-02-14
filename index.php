@@ -89,6 +89,7 @@
 		$members_rs = mysqli_query($connect, $members_rq);
 		$members_nb=mysqli_num_rows($members_rs);
 		
+		// SECTION TITLE
 		$section = "
 		<h2 class='text-center'>
 			Ajouter un membre d'équipage
@@ -135,25 +136,20 @@
 		$members_rs = mysqli_query($connect, $members_rq);
 		$members_nb = mysqli_num_rows($members_rs);
 		
+		// SECTION TILE
 		$section = "
 		<h2 class='text-center'>
 			<span class='badge rounded-pill text-bg-primary'>{$members_nb}</span> Membres d'équipage 
 		</h2>";		
 		
-		if(!$members_nb){
+		// MEMBER LIST
+		if($members_nb){
 			
-			$section .= "
-			<div class='alert alert-warning text-center' role='alert'>
-				Vous devez <strong>ajouter {$member_limit} Argonautes</strong> à l'équipage
-			</div>";	
-			
-		}else{
-			
-			$members_list = "";
+			$member_list = "";
 			
 			while($members=mysqli_fetch_array($members_rs)){	
 			
-				$members_list .= "
+				$member_list .= "
 				<div class='member-item col text-center py-1'>
 				
 					<span class='text-uppercase fw-bold'>".$members["name"]."</span> 
@@ -166,9 +162,16 @@
 			$section .= "
 			<section class='container'>		
 			
-				<div class='member-list row row-cols-3'>{$members_list}</div>
+				<div class='member-list row row-cols-3'>{$member_list}</div>
 				
-			</section>";			
+			</section>";	
+
+		}else{
+			
+			$section .= "
+			<div class='alert alert-warning text-center' role='alert'>
+				Vous devez <strong>ajouter {$member_limit} Argonautes</strong> à l'équipage
+			</div>";			
 			
 		}
 
